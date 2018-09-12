@@ -20,5 +20,7 @@ extern const char kWidevineOptedIn[];
 extern const char kUseAlternatePrivateSearchEngine[];
 extern const char kBraveThemeType[];
 extern const char kLocationBarIsWide[];
+extern const char kHTTPSEVerywhereControlType[];
+extern const char kNoScriptControlType[];
 
 #endif  // BRAVE_COMMON_PREF_NAMES_H_

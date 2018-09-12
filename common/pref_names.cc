@@ -20,3 +20,5 @@ const char kUseAlternatePrivateSearchEngine[] =
     "brave.use_alternate_private_search_engine";
 const char kBraveThemeType[] = "brave.theme.type";
 const char kLocationBarIsWide[] = "brave.location_bar_is_wide";
+const char kHTTPSEVerywhereControlType[] = "brave.https_everywhere_default";
+const char kNoScriptControlType[] = "brave.no_script_default";

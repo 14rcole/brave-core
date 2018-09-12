@@ -33,6 +33,8 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   tor::TorProfileService::RegisterProfilePrefs(registry);
 
   registry->RegisterBooleanPref(kWidevineOptedIn, false);
+  registry->RegisterBooleanPref(kHTTPSEVerywhereControlType, true);
+  registry->RegisterBooleanPref(kNoScriptControlType, false);
 
   // No sign into Brave functionality
   registry->SetDefaultPrefValue(prefs::kSigninAllowed, base::Value(false));

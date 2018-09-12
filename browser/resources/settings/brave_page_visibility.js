@@ -19,6 +19,13 @@ cr.define('settings', function() {
     }
   };
 
+  const braveShieldsDefeaultsHandler = {
+    get: function(obj, prop) {
+      console.log('braveShieldsDefeaultsHandler: ', 'obj: ', obj, 'prop:', prop)
+      return true;
+    }
+  };
+
   const privacyHandler = {
     get: function(obj, prop) {
       return true;
@@ -28,6 +35,7 @@ cr.define('settings', function() {
   const handler = {
     get: function(obj, prop) {
       if (prop === 'appearance') return new Proxy({}, appearanceHandler);
+      if (prop === 'braveShieldsDefaults') return new Proxy({}, braveShieldsDefeaultsHandler);
       if (prop === 'privacy') return new Proxy({}, privacyHandler);
       return prop === 'a11y' ? false : true;
     }

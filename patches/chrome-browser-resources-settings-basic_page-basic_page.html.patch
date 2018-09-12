@@ -1,0 +1,17 @@
+diff --git a/chrome/browser/resources/settings/basic_page/basic_page.html b/chrome/browser/resources/settings/basic_page/basic_page.html
+index 2605e1abd8c07f81aec29c8ecf8003b686b5e3dc..30d19175d54102c7e682dc3c81e1f2dd87f681da 100644
+--- a/chrome/browser/resources/settings/basic_page/basic_page.html
++++ b/chrome/browser/resources/settings/basic_page/basic_page.html
+@@ -208,6 +208,12 @@
+           </settings-section>
+         </template>
+ </if>
++        <template restamp>
++          <settings-section page-title="$i18n{braveShieldsDefaults}"
++              section="braveShieldsDefaults">
++            <settings-default-brave-shields-page></settings-default-brave-shields-page>
++          </settings-section>
++        </template>
+         <template is="dom-if" if="[[showPage_(pageVisibility.onStartup)]]"
+             restamp>
+           <settings-section page-title="$i18n{onStartup}" section="onStartup">
