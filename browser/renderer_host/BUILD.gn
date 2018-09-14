@@ -1,0 +1,12 @@
+import("//build/config/features.gni")
+
+source_set("renderer_host") {
+  sources = [
+    "brave_render_message_filter.cc",
+    "brave_render_message_filter.h",
+  ]
+
+  deps = [
+    "//chrome/browser",
+  ]
+}

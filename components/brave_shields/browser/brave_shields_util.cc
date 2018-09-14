@@ -8,7 +8,6 @@
 #include "brave/components/brave_shields/browser/brave_shields_web_contents_observer.h"
 #include "chrome/browser/extensions/extension_tab_util.h"
 #include "chrome/browser/profiles/profile_io_data.h"
-#include "components/content_settings/core/browser/host_content_settings_map.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "components/content_settings/core/common/content_settings_utils.h"
 #include "content/public/common/referrer.h"
@@ -67,6 +66,23 @@ bool IsAllowContentSettingFromIO(net::URLRequest* request,
 
   // TODO(bbondy): Add a static RegisterUserPrefs method for shields and use
   // prefs instead of simply returning true / false below.
+  if (setting == CONTENT_SETTING_DEFAULT) {
+    return GetDefaultFromResourceIdentifier(resource_identifier);
+  }
+  return setting == CONTENT_SETTING_ALLOW;
+}
+
+bool IsAllowContentSetting(HostContentSettingsMap* map,
+    const GURL& primary_url, const GURL& secondary_url,
+    ContentSettingsType setting_type,
+    const std::string& resource_identifier) {
+  content_settings::SettingInfo setting_info;
+  std::unique_ptr<base::Value> value = map->GetWebsiteSetting(
+          primary_url, secondary_url,
+          setting_type,
+          resource_identifier, &setting_info);
+  ContentSetting setting =
+      content_settings::ValueToContentSetting(value.get());
   if (setting == CONTENT_SETTING_DEFAULT) {
     return GetDefaultFromResourceIdentifier(resource_identifier);
   }

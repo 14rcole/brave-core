@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string>
 
+#include "components/content_settings/core/browser/host_content_settings_map.h"
 #include "components/content_settings/core/common/content_settings_types.h"
 #include "third_party/blink/public/platform/web_referrer_policy.h"
 
@@ -22,6 +23,11 @@ struct Referrer;
 class GURL;
 
 namespace brave_shields {
+
+bool IsAllowContentSetting(HostContentSettingsMap* map,
+    const GURL& primary_url, const GURL& secondary_url,
+    ContentSettingsType setting_type,
+    const std::string& resource_identifier);
 
 bool IsAllowContentSettingFromIO(net::URLRequest* request,
     const GURL& primary_url, const GURL& secondary_url,
