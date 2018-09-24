@@ -97,7 +97,7 @@ export class Panel extends React.Component<Props, State> {
               id={'wallet-panel'}
               platform={publisher.provider as Provider}
               publisherName={publisher.name}
-              publisherImg={publisher.favicon_url || `chrome://favicon/size/48@1x/${publisher.url}/`}
+              publisherImg={publisher.favicon_url || `chrome://favicon/size/48@1x/${publisher.url}`}
               monthlyAmount={10}
               isVerified={publisher.verified}
               tipsEnabled={true}
