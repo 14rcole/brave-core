@@ -17,24 +17,35 @@ const syncReducer: Reducer<Sync.State | undefined> = (state: Sync.State | undefi
 
   const payload = action.payload
   const startingState = state
+
   switch (action.type) {
-    case types.TEST_SYNC_ACTION:
-      state = { ...state }
-      state.something = payload.something
-      console.log('reducer received ', state.something)
+    case types.SYNC_REMOVE_DEVICE:
+      // chrome.send('deleteDevice', action.deviceId)
       break
-    // case types.types.APP_SET_STATE:
-      // chrome.send('', [])
-      // break
-    // case types.APP_CREATE_SYNC_CACHE:
-    // case types.APP_PENDING_SYNC_RECORDS_ADDED:
-    // case types.APP_PENDING_SYNC_RECORDS_REMOVED:
-    // case types.APP_SAVE_SYNC_DEVICES:
-    // case types.APP_SAVE_SYNC_INIT_DATA:
-    // case types.APP_RESET_SYNC_DATA:
-    // case types.APP_SET_SYNC_SETUP_ERROR:
-    // case types.APP_PENDING_SYNC_RECORDS_ADDED
-    // case types.APP_PENDING_SYNC_RECORDS_REMOVED
+    // chrome.send('needSyncQRcode')
+    // chrome.send('needSyncWords')
+    case types.SYNC_ENABLE:
+      state = { ...state, isSyncEnabled: true }
+      break
+    case types.SYNC_RESET:
+      // chrome.send('resetSync')
+      state = { ...state, isSyncEnabled: false }
+      break
+    case types.SYNC_SET_DEVICE_NAME:
+      state = { ...state, deviceName: payload.deviceName }
+      break
+    case types.SYNC_TOGGLE_DEVICE_SYNCING:
+      state = { ...state, setImmediateSyncDevice: payload.setImmediateSyncDevice }
+      break
+    case types.SYNC_BOOKMARKS_DATA:
+      state = { ...state, syncBookmarks: payload.shouldEnable }
+      break
+    case types.SYNC_SAVED_SITE_SETTINGS:
+      state = { ...state, syncSavedSiteSettings: payload.shouldEnable }
+      break
+    case types.SYNC_BROWSING_HISTORY:
+      state = { ...state, syncBrowsingHistory: payload.shouldEnable }
+      break
   }
 
   if (state !== startingState) {

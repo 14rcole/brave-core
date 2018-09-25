@@ -21,6 +21,7 @@ import { getLocale } from '../../../../common/locale'
 
 interface ResetSyncModalProps {
   onClose: () => void
+  actions: any
 }
 
 interface ResetSyncModalState {
@@ -34,9 +35,10 @@ class ResetSyncModal extends React.PureComponent<ResetSyncModalProps, ResetSyncM
   }
 
   areYouSureAlert = () => {
+    const { actions, onClose } = this.props
     if (window.confirm(getLocale('areYouSure'))) {
-      this.props.onClose()
-      // fire sync reset
+      actions.disableSync()
+      onClose()
     }
   }
 

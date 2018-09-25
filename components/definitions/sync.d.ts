@@ -4,7 +4,11 @@ declare namespace Sync {
   }
 
   export interface State {
-    something: string
-    // TODO
+    isSyncEnabled: boolean
+    deviceName: string
+    setImmediateSyncDevice: boolean
+    syncBookmarks: boolean,
+    syncSavedSiteSettings: boolean,
+    syncBrowsingHistory: boolean
   }
 }

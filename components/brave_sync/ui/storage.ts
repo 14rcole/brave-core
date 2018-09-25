@@ -8,7 +8,12 @@ import { debounce } from '../../common/debounce'
 const keyName = 'sync-data'
 
 const defaultState = {
-  isSyncEnabled: false
+  isSyncEnabled: false,
+  deviceName: '',
+  setImmediateSyncDevice: true,
+  syncBookmarks: false,
+  syncSavedSiteSettings: false,
+  syncBrowsingHistory: false
 }
 
 const cleanData = (state: Sync.State) => {

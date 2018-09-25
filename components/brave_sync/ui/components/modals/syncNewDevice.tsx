@@ -66,7 +66,7 @@ class SyncANewDeviceModal extends React.PureComponent<SyncANewDeviceModalProps, 
       <Modal id='showIAmSyncANewDeviceModal' onClose={onClose} size='small'>
         <Title level={1}>{getLocale('syncANewDevice')}</Title>
         <List>
-          <ListBullet>{getLocale('syncANewDeviceFirstBulletText')}</ListBullet>
+          <ListBullet>{getLocale('syncANewDeviceFirstBulletText')} aaaaaaaaaaaa</ListBullet>
           <ListBullet>
             {getLocale('syncANewDeviceSecondBulletText')}
               <Button

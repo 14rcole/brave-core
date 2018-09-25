@@ -45,11 +45,15 @@ class SyncDisabledContent extends React.PureComponent<SyncDisabledContentProps, 
   }
 
   render () {
+    const { actions } = this.props
     return (
       <Grid columns='auto 1fr'>
         {
           this.state.newToSync
-            ? <NewToSyncModal onClose={this.newToSyncModal} />
+            ? <NewToSyncModal
+                actions={actions}
+                onClose={this.newToSyncModal}
+              />
             : null
         }
         {

@@ -5,7 +5,8 @@
 import * as React from 'react'
 
 // Components
-import { Card, Toggle, Button } from 'brave-ui'
+import { Card, Button } from 'brave-ui'
+import SwitchButton from 'brave-ui/old/switchButton'
 import Table, { Cell, Row } from 'brave-ui/components/dataTables/table'
 
 // Feature-specific components
@@ -72,6 +73,13 @@ class SyncEnabledContent extends React.PureComponent<SyncEnabledContentProps, Sy
     ]
   }
 
+  toggleDeviceSyncing = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { actions } = this.props
+    if (event.target) {
+      actions.toggleDeviceSyncing(event.target.checked)
+    }
+  }
+
   syncANewDevice = () => {
     this.setState({ syncANewDevice: !this.state.syncANewDevice })
   }
@@ -80,7 +88,28 @@ class SyncEnabledContent extends React.PureComponent<SyncEnabledContentProps, Sy
     this.setState({ resetSync: !this.state.resetSync })
   }
 
+  onChangeSyncBookmarks = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { actions } = this.props
+    if (event.target) {
+      actions.enableBookmarksSync(event.target.checked)
+    }
+  }
+  onChangeSavedSiteSettings = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { actions } = this.props
+    if (event.target) {
+      actions.enableSavedSiteSettingsSync(event.target.checked)
+    }
+  }
+  onChangeBrowsingHistory = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { actions } = this.props
+    if (event.target) {
+      actions.enableBrowsingHistorySync(event.target.checked)
+    }
+  }
+
   render () {
+    const { actions, syncData } = this.props
+    console.log('hahaahahahahahahahaha', syncData.syncBookmarks)
     return (
       <>
         {
@@ -90,18 +119,23 @@ class SyncEnabledContent extends React.PureComponent<SyncEnabledContentProps, Sy
         }
         {
           this.state.resetSync
-            ? <ResetSyncModal onClose={this.resetSync} />
+            ? <ResetSyncModal actions={actions} onClose={this.resetSync} />
             : null
         }
         <Card>
           <Grid columns='1fr 1fr'>
             <FlexColumn items='center'>
-              <Toggle id='syncThisDevice' size='large' checked={false} />
+              <SwitchButton
+                id='syncThisDevice'
+                size='large'
+                checked={syncData.setImmediateSyncDevice}
+                onChange={this.toggleDeviceSyncing}
+              />
               <SwitchLabel htmlFor='syncThisDevice'>{getLocale('syncThisDevice')}</SwitchLabel>
             </FlexColumn>
             <FlexColumn direction='column'>
               <Label>{getLocale('deviceName')}</Label>
-              <Paragraph>MacOS without the ESC key</Paragraph>
+              <Paragraph>{syncData.deviceName}</Paragraph>
             </FlexColumn>
           </Grid>
         </Card>
@@ -120,15 +154,27 @@ class SyncEnabledContent extends React.PureComponent<SyncEnabledContentProps, Sy
           <SubTitle level={2}>{getLocale('syncData')}</SubTitle>
           <Paragraph>{getLocale('syncDataInfo')}</Paragraph>
           <Grid columns='auto 1fr' rows='1fr 1fr 1fr' gap='5px'>
-            <Toggle id='bookmarks' checked={false} />
+            <SwitchButton
+              id='bookmarks'
+              checked={syncData.syncBookmarks}
+              onChange={this.onChangeSyncBookmarks}
+            />
             <SwitchLabel htmlFor='bookmarks'>
               {getLocale('bookmarks')}
             </SwitchLabel>
-            <Toggle id='savedSiteSettings' checked={false} />
+            <SwitchButton
+              id='savedSiteSettings'
+              checked={syncData.syncSavedSiteSettings}
+              onChange={this.onChangeSavedSiteSettings}
+            />
             <SwitchLabel htmlFor='savedSiteSettings'>
               {getLocale('savedSiteSettings')}
             </SwitchLabel>
-            <Toggle id='browsingHistory' checked={false} />
+            <SwitchButton
+              id='browsingHistory'
+              checked={syncData.syncBrowsingHistory}
+              onChange={this.onChangeBrowsingHistory}
+            />
             <SwitchLabel htmlFor='browsingHistory'>
               {getLocale('browsingHistory')}
             </SwitchLabel>
