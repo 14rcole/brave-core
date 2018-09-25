@@ -30,6 +30,16 @@ class BraveRewardsGetPublisherDataFunction : public UIThreadExtensionFunction {
   ResponseAction Run() override;
 };
 
+class BraveRewardsGetWalletPropertiesFunction : public UIThreadExtensionFunction {
+ public:
+  DECLARE_EXTENSION_FUNCTION("braveRewards.getWalletProperties", UNKNOWN)
+
+ protected:
+  ~BraveRewardsGetWalletPropertiesFunction() override;
+
+  ResponseAction Run() override;
+};
+
 }  // namespace api
 }  // namespace extensions
 

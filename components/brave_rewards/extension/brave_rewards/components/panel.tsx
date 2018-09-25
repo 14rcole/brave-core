@@ -8,9 +8,11 @@ import { connect } from 'react-redux'
 import { WalletAddIcon, BatColorIcon } from 'brave-ui/components/icons'
 import { WalletWrapper, WalletSummary, WalletSummarySlider, WalletPanel } from 'brave-ui/features/rewards'
 import { Provider } from 'brave-ui/features/rewards/profile'
+import BigNumber from 'bignumber.js'
 
 // Utils
 import * as rewardsPanelActions from '../actions/rewards_panel_actions'
+import * as utils from '../../../ui/utils'
 
 interface Props extends RewardsExtension.ComponentProps {
   windowId: number
@@ -40,6 +42,8 @@ export class Panel extends React.Component<Props, State> {
         publisherKey: newKey
       })
     }
+
+    this.props.actions.getWalletProperties()
   }
 
   componentDidUpdate (prevProps: Props, prevState: State) {
@@ -83,16 +87,31 @@ export class Panel extends React.Component<Props, State> {
     })
   }
 
+  getGrants = (grants?: RewardsExtension.Grant[]) => {
+    if (!grants) {
+      return []
+    }
+
+    return grants.map((grant: RewardsExtension.Grant) => {
+      return {
+        tokens: new BigNumber(grant.probi.toString()).dividedBy('1e18').toNumber(),
+        expireDate: new Date(grant.expiryTime * 1000).toLocaleDateString()
+      }
+    })
+  }
+
   render () {
+    const { balance, rates, grants } = this.props.rewardsPanelData.walletProperties
     const publisher: RewardsExtension.Publisher | undefined = this.getPublisher()
+    const converted = utils.convertBalance(balance, rates)
 
     return (
       <WalletWrapper
         compact={true}
         contentPadding={false}
         gradientTop={this.gradientColor}
-        tokens={30}
-        converted={'15.50 USD'}
+        tokens={balance}
+        converted={utils.formatConverted(converted)}
         actions={[
           {
             name: 'Add funds',
@@ -108,20 +127,7 @@ export class Panel extends React.Component<Props, State> {
         showCopy={false}
         showSecActions={false}
         connectedWallet={false}
-        grants={[
-          {
-            tokens: 8,
-            expireDate: '7/15/2018'
-          },
-          {
-            tokens: 10,
-            expireDate: '9/10/2018'
-          },
-          {
-            tokens: 10,
-            expireDate: '10/10/2018'
-          }
-        ]}
+        grants={this.getGrants(grants)}
       >
         <WalletSummarySlider
           id={'panel-slider'}

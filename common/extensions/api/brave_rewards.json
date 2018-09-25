@@ -64,6 +64,70 @@
             }
           }
         ]
+      },
+      {
+        "name": "onWalletProperties",
+        "type": "function",
+        "description": "Fired when wallet properties (balance) is fetched",
+        "parameters": [
+          {
+            "name": "properties",
+            "type": "object",
+            "properties": {
+              "probi": {
+                "type": "string",
+                "description": "balance represented in probis"
+              },
+              "balance": {
+                "type": "double",
+                "description": "balance"
+              },
+              "rates": {
+                "type": "object",
+                "description": "rates for different currencies",
+                "properties": {
+                  "BTC": {
+                    "type": "double",
+                    "description": "BTC rate"
+                  },
+                  "ETH": {
+                    "type": "double",
+                    "description": "ETH rate"
+                  },
+                  "USD": {
+                    "type": "double",
+                    "description": "USD rate"
+                  },
+                  "EUR": {
+                    "type": "double",
+                    "description": "EUR rate"
+                  }
+                }
+              },
+              "grants": {
+                "type": "array",
+                "description": "user claimed grants",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "altcurrency": {
+                      "type": "string",
+                      "description": "currency in which grant is served"
+                    },
+                    "probi": {
+                      "type": "string",
+                      "description": "amount of the grant represented in probis"
+                    },
+                    "expiryTime": {
+                      "type": "string",
+                      "description": "when grant expires"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
       }
     ],
    "functions": [

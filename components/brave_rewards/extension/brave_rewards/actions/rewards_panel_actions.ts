@@ -25,3 +25,9 @@ export const onPublisherData = (windowId: number, publisher: RewardsExtension.Pu
   windowId,
   publisher
 })
+
+export const getWalletProperties = () => action(types.GET_WALLET_PROPERTIES, {})
+
+export const onWalletProperties = (properties: RewardsExtension.WalletProperties) => action(types.ON_WALLET_PROPERTIES, {
+  properties
+})
